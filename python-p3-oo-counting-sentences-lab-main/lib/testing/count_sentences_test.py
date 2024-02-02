@@ -14,7 +14,7 @@ class TestMyString:
         assert(type(string) == MyString)
 
     def test_value_string(self):
-        '''prints "The value must be a string." if not string.'''
+        """prints "The value must be a string." if not string."""
         captured_out = io.StringIO()
         sys.stdout = captured_out
         string = MyString()
