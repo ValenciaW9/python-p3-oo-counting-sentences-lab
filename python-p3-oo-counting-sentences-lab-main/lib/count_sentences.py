@@ -1,42 +1,50 @@
 #!/usr/bin/env python3
-import re
 
+#!/usr/bin/env python3
+
+import ipdb
 
 class MyString:
-  def __init__(self, value=""):
-    self._value = value
+
+  def __init__(self, value = ""):
+    self._value = value if type(value) == str else None
 
   def get_value(self):
     return self._value
 
   def set_value(self, value):
-    if type(value) != str:
-      print("The value must be a string.")
-    else:
+    if type(value) == str:
       self._value = value
+    else:
+      print("The value must be a string.")
+      return None
 
+  def ends_with(self, sentence, end_char):
+    if sentence[-1] == end_char:
+      return True
+    else: 
+      return False
 
   def is_sentence(self):
-    if self.value.endswith("."):
-      return True
-    return False
-
+    return self.ends_with(self._value, '.')
+ 
   def is_question(self):
-    if self.value.endswith("?"):
-      return True
-    return False
+    return self.ends_with(self._value, '?')
 
   def is_exclamation(self):
-    if self.value.endswith("!"):
-      return True
-    return False
+    return self.ends_with(self._value, '!')
 
   def count_sentences(self):
-    if not self.value:
-      return 0
+    counter = 0
+    split_sentence = self._value.split(' ')
+    for sentence in split_sentence:
+      if(len(sentence) > 0):
+        string = MyString(sentence)
+        counter += 1 if string.is_sentence() or string.is_question() or string.is_exclamation() else 0
 
-    # Split the string on punctuation marks and filter out empty strings
-    sentences = [s.strip() for s in re.split(r"[.!?]", self.value) if s.strip()]
-    return len(sentences)
+    return counter
 
   value = property(get_value, set_value)
+
+  pass
+ 
