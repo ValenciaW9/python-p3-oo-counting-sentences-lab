@@ -1,33 +1,86 @@
+#!/usr/bin/env python3
+
 class MyString:
+    def __init__(self, value=''):
+        if not isinstance(value, str):
+            print("The value must be a string.")
+            value = ''
 
-  def __init__(self, value = ""):
-    self._value = value
-    
-  def get_value(self):
-    return self._value
+        self._value = value
 
-  def set_value(self, stringVal):
-    if (type(stringVal) == str):
-      self._value = stringVal
-    else:
-      print("The value must be a string.")
+    @property
+    def value(self):
+        return self._value
 
-  value = property(get_value, set_value)
+    @value.setter
+    def value(self, new_value):
+        if not isinstance(new_value, str):
+            print("The value must be a string.")
+            return
+        self._value = new_value
+#!/usr/bin/env python3
 
-  def is_sentence(self):
-    return self._value.endswith(".")
+class MyString:
+    def __init__(self, value=''):
+        if not isinstance(value, str):
+            print("The value must be a string.")
+            value = ''
+        self._value = value
 
-  def is_question(self):
-    return self._value.endswith("?")
+    @property
+    def value(self):
+        return self._value
 
-  def is_exclamation(self):
-    return self._value.endswith("!")
+    @value.setter
+    def value(self, new_value):
+        if not isinstance(new_value, str):
+            print("The value must be a string.")
+            return
+        self._value = new_value
 
-  def count_sentences(self):
-    value = self.value
-    for punc in ['!','?']:
-        value = value.replace(punc, '.')
-    
-    sentences = [s for s in value.split('.') if s]
-    
-    return len(sentences)
+    def is_sentence(self):
+        return self._value.endswith('.')
+
+    def is_question(self):
+        return self._value.endswith('?')
+
+    def is_exclamation(self):
+        return self._value.endswith('!')
+
+    def count_sentences(self):
+        # This is a simple implementation and may not cover all cases
+        sentences = [s.strip() for s in self._value.split('.') if s.strip()]
+        return len(sentences)
+
+import re
+
+class MyString:
+    def __init__(self, value=''):
+        if not isinstance(value, str):
+            print("The value must be a string.")
+            value = ''
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if not isinstance(new_value, str):
+            print("The value must be a string.")
+            return
+        self._value = new_value
+
+    def is_sentence(self):
+        return self._value.endswith('.')
+
+    def is_question(self):
+        return self._value.endswith('?')
+
+    def is_exclamation(self):
+        return self._value.endswith('!')
+
+    def count_sentences(self):
+        sentences = [s.strip() for s in re.split(r'[.!?]', self._value) if s.strip()]
+        return len(sentences)
