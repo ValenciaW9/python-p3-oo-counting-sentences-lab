@@ -1,34 +1,33 @@
 #!/usr/bin/env python3
 
 class MyString:
-  
-  def __init__(self, value = ''):
-    self.value = value
+    def __init__(self, value=''):
+        if isinstance(value, str):
+            self.value = value
+        else:
+            raise ValueError("The value must be a string.")
 
-  def set_value(self, value):
-    if isinstance(value, str):
-      self._value = value
-    else:
-      print('The value must be a string.')
-  
-  def get_value(self):
-    return self._value
-  
-  value = property(get_value, set_value)
+    def is_sentence(self):
+        return self.value.endswith('.')
 
-  def is_sentence(self):
-    return True if self._value.endswith('.') else False
+    def is_question(self):
+        return self.value.endswith('?')
 
-  def is_question(self):
-    return True if self._value.endswith('?') else False
+    def is_exclamation(self):
+        return self.value.endswith('!')
 
-  def is_exclamation(self):
-    return True if self._value.endswith('!') else False
-  
-  def count_sentences(self):
-    i = 0
-    for word in self._value.split():
-      if word.endswith('.') or word.endswith('!') or word.endswith('?'):
-        i += 1
-    return i
-  
+    def count_sentences(self):
+        sentences = [sentence for sentence in self.value.split('.') if sentence.strip()]
+        return len(sentences)
+
+string = MyString("This is a sentence.")
+print(string.is_sentence())  # Output: True
+print(string.is_question())  # Output: False
+print(string.is_exclamation())  # Output: False
+print(string.count_sentences())  # Output: 1
+
+
+
+
+
+
