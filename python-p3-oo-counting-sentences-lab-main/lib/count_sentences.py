@@ -1,26 +1,33 @@
-#!/usr/bin/env python3
-import re
-
 class MyString:
-    def __init__(self, value=None):
-        if isinstance(value, str):
-            self.value = value
-        else:
-            print("The value must be a string.")
-            self.value = ""
 
-    def is_sentence(self):
-        return self.value.endswith('.')
+  def __init__(self, value = ""):
+    self._value = value
+    
+  def get_value(self):
+    return self._value
 
-    def is_question(self):
-        return self.value.endswith('?')
+  def set_value(self, stringVal):
+    if (type(stringVal) == str):
+      self._value = stringVal
+    else:
+      print("The value must be a string.")
 
-    def is_exclamation(self):
-        return self.value.endswith('!')
+  value = property(get_value, set_value)
 
-    def count_sentences(self):
-        if not self.value:
-            return 0
-        sentences = re.split(r'[.!?]', self.value)
-        non_empty_sentences = [s.strip() for s in sentences if s.strip()]
-        return len(non_empty_sentences)
+  def is_sentence(self):
+    return self._value.endswith(".")
+
+  def is_question(self):
+    return self._value.endswith("?")
+
+  def is_exclamation(self):
+    return self._value.endswith("!")
+
+  def count_sentences(self):
+    value = self.value
+    for punc in ['!','?']:
+        value = value.replace(punc, '.')
+    
+    sentences = [s for s in value.split('.') if s]
+    
+    return len(sentences)

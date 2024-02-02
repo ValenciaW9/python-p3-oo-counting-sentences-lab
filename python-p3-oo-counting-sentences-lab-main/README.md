@@ -61,8 +61,7 @@ to refer to the instance of `MyString` on which the method is being called.
 ### `MyString`
 
 Create the `MyString` class and give it a `value` _property_. The class should
-verify that the `value` is a string before assigning it. The default value of
-`value` should be the empty string, `''`.
+verify that the `value` is a string before assigning it.
 
 ### `is_sentence()`
 
